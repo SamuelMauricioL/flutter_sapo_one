@@ -1,0 +1,3 @@
+class SoVerificationDomain {
+  const SoVerificationDomain();
+}
