@@ -32,11 +32,11 @@ class VerificationCodeError extends VerificationState {
 }
 
 class VerificationSuccess extends VerificationState {
-  const VerificationSuccess(this.user);
-  final VerificationEntity user;
+  const VerificationSuccess(this.verification);
+  final VerificationEntity verification;
 
   @override
-  List<Object> get props => [user];
+  List<Object> get props => [verification];
 }
 
 class VerificationFailure extends VerificationState {

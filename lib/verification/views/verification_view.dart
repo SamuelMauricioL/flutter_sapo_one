@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_sapo_one/di/injection_container.dart';
 import 'package:flutter_sapo_one/verification/bloc/verification_bloc.dart';
-import 'package:flutter_sapo_one/verification/widgets/verification_start_button.dart';
 import 'package:flutter_sapo_one/verification/widgets/verification_code_input.dart';
 import 'package:flutter_sapo_one/verification/widgets/verification_email_input.dart';
+import 'package:flutter_sapo_one/verification/widgets/verification_start_button.dart';
+import 'package:flutter_sapo_one/verification/widgets/verification_success_info.dart';
 import 'package:so_ui/so_ui.dart';
 import 'package:so_verification_domain/so_verification_domain.dart';
 
@@ -46,8 +47,9 @@ class VerificationBody extends StatelessWidget {
           if (state is VerificationSuccess) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content:
-                    Text('Email verificado con éxito: ${state.user.email}'),
+                content: Text(
+                  'Email verificado con éxito: ${state.verification.email}',
+                ),
               ),
             );
           }
@@ -74,15 +76,24 @@ class VerificationBody extends StatelessWidget {
             VerificationCodeSending() => const Center(
                 child: SoLoadingIndicator(text: 'Enviando Código...'),
               ),
-            VerificationInProgress() => const Center(
-                child: SoLoadingIndicator(text: 'Verificando...'),
-              ),
             VerificationCodeSent(:final String email) => VerificationCodeInput(
                 codeController: _codeController,
                 onPressed: () {
                   context.read<VerificationBloc>().add(
                         VerifyEmailEvent(email, _codeController.text),
                       );
+                },
+              ),
+            VerificationInProgress() => const Center(
+                child: SoLoadingIndicator(text: 'Verificando...'),
+              ),
+            VerificationSuccess(:final VerificationEntity verification) =>
+              VerificationSuccessInfo(
+                email: verification.email,
+                onBackPressed: () {
+                  context
+                      .read<VerificationBloc>()
+                      .add(const StartVerificationEvent());
                 },
               ),
             _ => const SizedBox(),
