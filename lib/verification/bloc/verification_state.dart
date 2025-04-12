@@ -7,6 +7,8 @@ abstract class VerificationState extends Equatable {
   List<Object> get props => [];
 }
 
+class VerificationToStart extends VerificationState {}
+
 class VerificationInitial extends VerificationState {}
 
 class VerificationCodeSending extends VerificationState {}
@@ -19,6 +21,8 @@ class VerificationCodeSent extends VerificationState {
   List<Object> get props => [email];
 }
 
+class VerificationInProgress extends VerificationState {}
+
 class VerificationCodeError extends VerificationState {
   const VerificationCodeError(this.error);
   final String error;
@@ -26,8 +30,6 @@ class VerificationCodeError extends VerificationState {
   @override
   List<Object> get props => [error];
 }
-
-class VerificationInProgress extends VerificationState {}
 
 class VerificationSuccess extends VerificationState {
   const VerificationSuccess(this.user);

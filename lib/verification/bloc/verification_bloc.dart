@@ -13,9 +13,10 @@ class VerificationBloc extends Bloc<VerificationEvent, VerificationState> {
     required VerifyEmailUseCase verifyEmailUseCase,
   })  : _sendVerificationCodeUseCase = sendVerificationCodeUseCase,
         _verifyEmailUseCase = verifyEmailUseCase,
-        super(VerificationInitial()) {
+        super(VerificationToStart()) {
     on<SendVerificationCodeEvent>(_onSendVerificationCodeEvent);
     on<VerifyEmailEvent>(_onVerifyEmailEvent);
+    on<StartVerificationEvent>(_onStartVerificationEvent);
   }
 
   final SendVerificationCodeUseCase _sendVerificationCodeUseCase;
@@ -46,5 +47,12 @@ class VerificationBloc extends Bloc<VerificationEvent, VerificationState> {
       ok: (entity) => emit(VerificationSuccess(entity)),
       err: (failure) => emit(VerificationFailure(failure.message)),
     );
+  }
+
+  Future<void> _onStartVerificationEvent(
+    StartVerificationEvent event,
+    Emitter<VerificationState> emit,
+  ) async {
+    emit(VerificationInitial());
   }
 }

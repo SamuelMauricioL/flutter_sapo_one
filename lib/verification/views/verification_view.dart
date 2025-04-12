@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_sapo_one/di/injection_container.dart';
 import 'package:flutter_sapo_one/verification/bloc/verification_bloc.dart';
+import 'package:flutter_sapo_one/verification/widgets/verification_start_button.dart';
 import 'package:flutter_sapo_one/verification/widgets/verification_code_input.dart';
 import 'package:flutter_sapo_one/verification/widgets/verification_email_input.dart';
 import 'package:so_ui/so_ui.dart';
@@ -53,6 +54,13 @@ class VerificationBody extends StatelessWidget {
         },
         builder: (context, state) {
           return switch (state) {
+            VerificationToStart() => VerificationStartButton(
+                onPressed: () {
+                  context
+                      .read<VerificationBloc>()
+                      .add(const StartVerificationEvent());
+                },
+              ),
             VerificationInitial() => Center(
                 child: VerificationEmailInput(
                   emailController: _emailController,

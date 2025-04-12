@@ -23,3 +23,7 @@ class VerifyEmailEvent extends VerificationEvent {
   @override
   List<Object> get props => [email, verificationCode];
 }
+
+class StartVerificationEvent extends VerificationEvent {
+  const StartVerificationEvent();
+}

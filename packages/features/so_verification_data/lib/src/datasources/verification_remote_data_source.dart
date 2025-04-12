@@ -18,10 +18,9 @@ class VerificationRemoteDataSourceImpl implements VerificationRemoteDataSource {
   Future<void> sendVerificationCode({required String email}) async {
     try {
       final callable = _functions.httpsCallable('sendVerificationCode');
-      final response = await callable.call(<String, dynamic>{'email': email});
-      print('Cloud Function response: ${response.data}');
+      // ignore: inference_failure_on_function_invocation
+      await callable.call(<String, dynamic>{'email': email});
     } catch (e) {
-      print('Error calling sendVerificationCode: $e');
       throw Exception('Error sending verification code');
     }
   }
@@ -51,7 +50,6 @@ class VerificationRemoteDataSourceImpl implements VerificationRemoteDataSource {
         throw Exception('Verification code not found');
       }
     } catch (e) {
-      print('Error in verifyEmail: $e');
       rethrow;
     }
   }
