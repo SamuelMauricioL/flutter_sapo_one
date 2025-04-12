@@ -1,0 +1,3 @@
+class SoUtils {
+  const SoUtils();
+}

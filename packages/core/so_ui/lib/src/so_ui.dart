@@ -1,0 +1,3 @@
+class SoUi {
+  const SoUi();
+}
