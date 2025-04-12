@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_sapo_one/di/injection_container.dart';
 import 'package:flutter_sapo_one/firebase_options.dart';
 
 class AppBlocObserver extends BlocObserver {
@@ -34,6 +35,8 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  await Get.init();
 
   runApp(await builder());
 }

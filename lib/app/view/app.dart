@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_sapo_one/counter/counter.dart';
 import 'package:flutter_sapo_one/l10n/l10n.dart';
+import 'package:flutter_sapo_one/verification/views/verification_view.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -16,7 +16,7 @@ class App extends StatelessWidget {
       ),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      home: const CounterPage(),
+      home: const VerificationView(),
     );
   }
 }

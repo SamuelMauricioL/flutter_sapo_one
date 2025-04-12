@@ -1,0 +1,46 @@
+part of 'verification_bloc.dart';
+
+abstract class VerificationState extends Equatable {
+  const VerificationState();
+
+  @override
+  List<Object> get props => [];
+}
+
+class VerificationInitial extends VerificationState {}
+
+class VerificationCodeSending extends VerificationState {}
+
+class VerificationCodeSent extends VerificationState {
+  const VerificationCodeSent(this.verificationId);
+  final String verificationId;
+
+  @override
+  List<Object> get props => [verificationId];
+}
+
+class VerificationCodeError extends VerificationState {
+  const VerificationCodeError(this.error);
+  final String error;
+
+  @override
+  List<Object> get props => [error];
+}
+
+class VerificationInProgress extends VerificationState {}
+
+class VerificationSuccess extends VerificationState {
+  const VerificationSuccess(this.user);
+  final VerificationEntity user;
+
+  @override
+  List<Object> get props => [user];
+}
+
+class VerificationFailure extends VerificationState {
+  const VerificationFailure(this.error);
+  final String error;
+
+  @override
+  List<Object> get props => [error];
+}
