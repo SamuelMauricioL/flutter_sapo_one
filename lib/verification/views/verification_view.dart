@@ -70,6 +70,7 @@ class VerificationBody extends StatelessWidget {
                     context
                         .read<VerificationBloc>()
                         .add(SendVerificationCodeEvent(_emailController.text));
+                    _emailController.clear();
                   },
                 ),
               ),
