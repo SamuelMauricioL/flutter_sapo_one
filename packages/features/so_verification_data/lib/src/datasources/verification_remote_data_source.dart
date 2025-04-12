@@ -1,58 +1,57 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_functions/cloud_functions.dart';
 import 'package:so_verification_data/src/models/verification_model.dart';
 
 abstract class VerificationRemoteDataSource {
   Future<void> sendVerificationCode({required String email});
   Future<VerificationModel> verifyEmail({
-    required String verificationId,
-    required String smsCode,
+    required String email,
+    required String verificationCode,
   });
 }
 
 class VerificationRemoteDataSourceImpl implements VerificationRemoteDataSource {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseFunctions _functions = FirebaseFunctions.instance;
 
   @override
   Future<void> sendVerificationCode({required String email}) async {
-    await _auth.verifyPhoneNumber(
-      phoneNumber: email, // Using email as phoneNumber
-      codeAutoRetrievalTimeout: (String verificationId) {},
-      codeSent: (String verificationId, int? forceResendingToken) {},
-      verificationFailed: (FirebaseAuthException e) {
-        throw e;
-      },
-      verificationCompleted: (PhoneAuthCredential credential) async {
-        await _auth.signInWithCredential(credential);
-      },
-    );
+    try {
+      final callable = _functions.httpsCallable('sendVerificationCode');
+      final response = await callable.call(<String, dynamic>{'email': email});
+      print('Cloud Function response: ${response.data}');
+    } catch (e) {
+      print('Error calling sendVerificationCode: $e');
+      throw Exception('Error sending verification code');
+    }
   }
 
   @override
   Future<VerificationModel> verifyEmail({
-    required String verificationId,
-    required String smsCode,
+    required String email,
+    required String verificationCode,
   }) async {
-    final credential = PhoneAuthProvider.credential(
-      verificationId: verificationId,
-      smsCode: smsCode,
-    );
-
     try {
-      final userCredential = await _auth.signInWithCredential(credential);
-      final user = userCredential.user;
+      final verificationDoc =
+          await _firestore.collection('verificationCodes').doc(email).get();
 
-      if (user != null) {
-        await _firestore.collection('users').doc(user.uid).set({
-          'email': user.email,
-          'verifiedEmail': true,
-        });
-        return VerificationModel(email: user.email!, isVerified: true);
+      if (verificationDoc.exists) {
+        final storedCode = verificationDoc.data()!['code'];
+        if (storedCode == verificationCode) {
+          await _firestore.collection('users').doc().set({
+            'email': email,
+            'verifiedEmail': true,
+          });
+
+          return VerificationModel(email: email, isVerified: true);
+        } else {
+          throw Exception('Invalid verification code');
+        }
       } else {
-        throw Exception('Error verifying user');
+        throw Exception('Verification code not found');
       }
     } catch (e) {
+      print('Error in verifyEmail: $e');
       rethrow;
     }
   }

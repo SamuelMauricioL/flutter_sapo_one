@@ -7,7 +7,7 @@ abstract class VerificationRepository {
     required String email,
   });
   Future<Result<VerificationEntity, SoFailure>> verifyEmail({
-    required String verificationId,
-    required String smsCode,
+    required String email,
+    required String verificationCode,
   });
 }

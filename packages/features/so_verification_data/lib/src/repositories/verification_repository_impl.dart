@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:oxidized/oxidized.dart';
 import 'package:so_utils/so_utils.dart';
 import 'package:so_verification_data/src/datasources/verification_remote_data_source.dart';
@@ -17,28 +16,24 @@ class VerificationRepositoryImpl implements VerificationRepository {
     try {
       await remoteDataSource.sendVerificationCode(email: email);
       return const Result.ok(unit);
-    } on FirebaseAuthException catch (_) {
-      return const Result.err(SendCodeFailure());
     } catch (e) {
-      return const Result.err(ServerFailure());
+      return const Result.err(SendCodeFailure());
     }
   }
 
   @override
   Future<Result<VerificationEntity, SoFailure>> verifyEmail({
-    required String verificationId,
-    required String smsCode,
+    required String email,
+    required String verificationCode,
   }) async {
     try {
       final verificationModel = await remoteDataSource.verifyEmail(
-        verificationId: verificationId,
-        smsCode: smsCode,
+        email: email,
+        verificationCode: verificationCode,
       );
       return Result.ok(verificationModel.toEntity());
-    } on FirebaseAuthException catch (_) {
-      return const Result.err(VerifyEmailFailure());
     } catch (e) {
-      return const Result.err(ServerFailure());
+      return const Result.err(VerifyEmailFailure());
     }
   }
 }

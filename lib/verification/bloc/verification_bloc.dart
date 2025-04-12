@@ -28,7 +28,7 @@ class VerificationBloc extends Bloc<VerificationEvent, VerificationState> {
     emit(VerificationCodeSending());
     final result = await _sendVerificationCodeUseCase(email: event.email);
     result.when(
-      ok: (_) => emit(const VerificationCodeSent('123456789')),
+      ok: (_) => emit(VerificationCodeSent(event.email)),
       err: (failure) => emit(VerificationCodeError(failure.message)),
     );
   }
@@ -39,8 +39,8 @@ class VerificationBloc extends Bloc<VerificationEvent, VerificationState> {
   ) async {
     emit(VerificationInProgress());
     final result = await _verifyEmailUseCase(
-      verificationId: event.verificationId,
-      smsCode: event.smsCode,
+      email: event.email,
+      verificationCode: event.verificationCode,
     );
     result.when(
       ok: (entity) => emit(VerificationSuccess(entity)),

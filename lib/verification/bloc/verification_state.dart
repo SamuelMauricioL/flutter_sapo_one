@@ -12,11 +12,11 @@ class VerificationInitial extends VerificationState {}
 class VerificationCodeSending extends VerificationState {}
 
 class VerificationCodeSent extends VerificationState {
-  const VerificationCodeSent(this.verificationId);
-  final String verificationId;
+  const VerificationCodeSent(this.email);
+  final String email;
 
   @override
-  List<Object> get props => [verificationId];
+  List<Object> get props => [email];
 }
 
 class VerificationCodeError extends VerificationState {

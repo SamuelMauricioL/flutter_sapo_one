@@ -7,12 +7,12 @@ class VerifyEmailUseCase {
   final VerificationRepository repository;
 
   Future<Result<VerificationEntity, SoFailure>> call({
-    required String verificationId,
-    required String smsCode,
+    required String email,
+    required String verificationCode,
   }) async {
     return repository.verifyEmail(
-      verificationId: verificationId,
-      smsCode: smsCode,
+      email: email,
+      verificationCode: verificationCode,
     );
   }
 }

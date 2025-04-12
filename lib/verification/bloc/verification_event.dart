@@ -16,10 +16,10 @@ class SendVerificationCodeEvent extends VerificationEvent {
 }
 
 class VerifyEmailEvent extends VerificationEvent {
-  const VerifyEmailEvent(this.verificationId, this.smsCode);
-  final String verificationId;
-  final String smsCode;
+  const VerifyEmailEvent(this.email, this.verificationCode);
+  final String email;
+  final String verificationCode;
 
   @override
-  List<Object> get props => [verificationId, smsCode];
+  List<Object> get props => [email, verificationCode];
 }

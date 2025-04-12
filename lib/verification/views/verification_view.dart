@@ -69,15 +69,11 @@ class VerificationBody extends StatelessWidget {
             VerificationInProgress() => const Center(
                 child: SoLoadingIndicator(text: 'Verificando...'),
               ),
-            VerificationCodeSent(:final String verificationId) =>
-              VerificationCodeInput(
+            VerificationCodeSent(:final String email) => VerificationCodeInput(
                 codeController: _codeController,
                 onPressed: () {
                   context.read<VerificationBloc>().add(
-                        VerifyEmailEvent(
-                          verificationId,
-                          _codeController.text,
-                        ),
+                        VerifyEmailEvent(email, _codeController.text),
                       );
                 },
               ),
