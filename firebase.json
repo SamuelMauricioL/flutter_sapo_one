@@ -1,1 +1,44 @@
-{"flutter":{"platforms":{"android":{"default":{"projectId":"sapo-one","appId":"1:235754273229:android:55786be0fd06e13edbac84","fileOutput":"android/app/google-services.json"}},"ios":{"default":{"projectId":"sapo-one","appId":"1:235754273229:ios:c58bf31188266034dbac84","uploadDebugSymbols":false,"fileOutput":"ios/Runner/GoogleService-Info.plist"}},"dart":{"lib/firebase_options.dart":{"projectId":"sapo-one","configurations":{"android":"1:235754273229:android:55786be0fd06e13edbac84","ios":"1:235754273229:ios:c58bf31188266034dbac84","web":"1:235754273229:web:43e772b021270ab3dbac84"}}}}}}
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "sapo-one",
+          "appId": "1:235754273229:android:55786be0fd06e13edbac84",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "ios": {
+        "default": {
+          "projectId": "sapo-one",
+          "appId": "1:235754273229:ios:c58bf31188266034dbac84",
+          "uploadDebugSymbols": false,
+          "fileOutput": "ios/Runner/GoogleService-Info.plist"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "sapo-one",
+          "configurations": {
+            "android": "1:235754273229:android:55786be0fd06e13edbac84",
+            "ios": "1:235754273229:ios:c58bf31188266034dbac84",
+            "web": "1:235754273229:web:43e772b021270ab3dbac84"
+          }
+        }
+      }
+    }
+  },
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log",
+        "*.local"
+      ]
+    }
+  ]
+}
