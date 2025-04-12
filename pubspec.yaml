@@ -19,6 +19,10 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: ^0.19.0
+  so_verification_data:
+    path: packages/features/so_verification_data
+  so_verification_domain:
+    path: packages/features/so_verification_domain
 
 dev_dependencies:
   bloc_test: ^9.1.7

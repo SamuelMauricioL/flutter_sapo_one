@@ -6,6 +6,12 @@ publish_to: none
 environment:
   sdk: ^3.5.0
 
+dependencies:
+  equatable: ^2.0.7
+  oxidized: 6.2.0
+  so_utils:
+    path: ../../core/so_utils
+
 dev_dependencies:
   mocktail: ^1.0.4
   test: ^1.25.8

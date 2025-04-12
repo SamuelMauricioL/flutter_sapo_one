@@ -6,6 +6,15 @@ publish_to: none
 environment:
   sdk: ^3.5.0
 
+dependencies:
+  cloud_firestore: ^5.6.6
+  firebase_auth: ^5.5.2
+  oxidized: 6.2.0
+  so_utils:
+    path: ../../core/so_utils
+  so_verification_domain:
+    path: ../../features/so_verification_domain
+
 dev_dependencies:
   mocktail: ^1.0.4
   test: ^1.25.8
