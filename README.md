@@ -162,3 +162,10 @@ Clean architecture based-on-packages with a feature-first approach.
 - **Cloud Firestore:** [cloud_firestore](https://pub.dev/packages/cloud_firestore)
 - **Cloud Functions for Firebase:** [cloud_functions](https://pub.dev/packages/cloud_functions)
 - **Code Analysis:** [very_good_analysis](https://pub.dev/packages/very_good_analysis)
+
+## Demo
+
+
+https://github.com/user-attachments/assets/9fb8851c-c474-403d-b40e-89bb80e9a944
+
+
